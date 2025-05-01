@@ -1,4 +1,5 @@
-Here are the definitions for each of the terms:
+EASY 1 )
+  Here are the definitions for each of the terms:
 
 Data:
 Data refers to raw facts, figures, or information that are collected and stored, often in digital form. It can be numbers, text, images, or other forms of input that, by themselves, may not carry meaning until processed or organized.
@@ -15,7 +16,8 @@ A table is a set of data elements (values) that are organized using a model of v
 
 ---------------------------------------------------------
 
-Data Security and Encryption:
+Easy 2)
+  Data Security and Encryption:
 SQL Server provides robust security features including authentication, authorization, Transparent Data Encryption (TDE), and Always Encrypted to protect data at rest and in transit.
 
 High Availability and Disaster Recovery (HADR):
@@ -33,8 +35,27 @@ Tools like SQL Server Management Studio (SSMS) and SQL Server Profiler make it e
 
   -------------------------------------------------------
 
+  Essy 3)
   Windows Authentication:
 This mode uses the Windows operating system credentials of the user to authenticate access to SQL Server. It's considered more secure because it leverages Active Directory for centralized credential management and supports features like Kerberos.
 
 SQL Server Authentication:
 This mode requires users to provide a SQL Server–specific username and password created and managed within SQL Server. It is useful in environments where Windows Authentication is not possible (e.g., cross-platform access).
+
+  -------------------------------------------------------
+
+ Medium )
+  create database SchoolDB
+
+Create Table Students( 
+  StudentID INT PRIMARY Key ,
+  Name Varchar (50),
+  Age int 
+  );
+
+  -------------------------------------------------------
+
+  SQL Server is DATABASE  where we keep datas and control them 
+  SSMS is program interface and we can work with it with SQL easily 
+  SQL is program language and we use it to give command and control and change and for etc ...
+
