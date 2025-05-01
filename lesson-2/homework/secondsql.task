@@ -1,1 +1,77 @@
-yyo
+1. Create the Employees Table
+
+CREATE TABLE Employees (
+    EmpID INT,
+    Name VARCHAR(50),
+    Salary DECIMAL(10,2)
+);
+
+2. Insert Records into Employees Table
+a. Single-row Insert:
+    INSERT INTO Employees (EmpID, Name, Salary)
+     VALUES (1, 'John Doe', 5000.00);
+
+b. Multiple-row Insert:
+INSERT INTO Employees (EmpID, Name, Salary)
+VALUES 
+    (2, 'Jane Smith', 6000.00),
+    (3, 'Alice Johnson', 5500.00);
+
+3. Update Salary for Employee with EmpID = 1
+   UPDATE Employees
+   SET Salary = 7000.00
+   WHERE EmpID = 1;
+
+4. Delete Record Where EmpID = 2
+   DELETE FROM Employees
+   WHERE EmpID = 2;
+
+
+DELETE: Allows conditional deletion and can be rolled back if within a transaction.
+
+TRUNCATE: Quickly removes all records; in SQL Server, it can be rolled back if used within a transaction.
+
+DROP: Permanently deletes the table structure and data; cannot be rolled back.
+
+6. Modify Name Column to VARCHAR(100)
+ALTER TABLE Employees
+ALTER COLUMN Name VARCHAR(100);
+
+
+ 7. Add New Column Department to Employees Table
+ALTER TABLE Employees
+ADD Department VARCHAR(50);
+
+8. Change Data Type of Salary Column to FLOAT
+
+ALTER TABLE Employees
+ALTER COLUMN Salary FLOAT;
+
+
+9. Create Departments Table
+CREATE TABLE Departments (
+    DepartmentID INT PRIMARY KEY,
+    DepartmentName VARCHAR(50)
+);
+
+10. Remove All Records from Employees Table Without Deleting Its Structure
+TRUNCATE TABLE Employees;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
