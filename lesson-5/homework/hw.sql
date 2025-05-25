@@ -1,7 +1,7 @@
 1) Select ProductName AS Name
 From Products ; 
 
-2) SelectCustomers Table AS Client 
+2) Select Customers Table AS Client 
 From Customers;
 3) SELECT ProductName FROM Products
 UNION
