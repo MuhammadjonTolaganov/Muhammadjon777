@@ -272,8 +272,23 @@
   /* Real photography, keyed by product id. Drop a file in
      assets/img/photos/<id>.jpg and add the id here, or point at a full URL.
      Anything absent falls back to the generated illustration. */
+  /* Real photographs, from Wikimedia Commons under free licences; see
+     assets/img/photos/credits.json for author and licence per file. Any
+     plant without an entry keeps its illustration. */
   const PHOTOS = {
-    // 'monstera-deliciosa': 'assets/img/photos/monstera-deliciosa.jpg',
+    'anthurium': 'assets/img/photos/anthurium.jpg',
+    'boston-fern': 'assets/img/photos/boston-fern.jpg',
+    'dendrobium-orchid': 'assets/img/photos/dendrobium-orchid.jpg',
+    'echeveria-rosette': 'assets/img/photos/echeveria-rosette.jpg',
+    'ficus-bonsai': 'assets/img/photos/ficus-bonsai.jpg',
+    'golden-barrel': 'assets/img/photos/golden-barrel.jpg',
+    'golden-pothos': 'assets/img/photos/golden-pothos.jpg',
+    'jade-plant': 'assets/img/photos/jade-plant.jpg',
+    'maidenhair-fern': 'assets/img/photos/maidenhair-fern.jpg',
+    'monstera-deliciosa': 'assets/img/photos/monstera-deliciosa.jpg',
+    'peace-lily': 'assets/img/photos/peace-lily.jpg',
+    'phalaenopsis-orchid': 'assets/img/photos/phalaenopsis-orchid.jpg',
+    'san-pedro-cactus': 'assets/img/photos/san-pedro-cactus.jpg'
   };
 
   const byId = {};

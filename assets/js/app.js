@@ -130,31 +130,44 @@
 
   V.home = function () {
     const feat = DATA.PRODUCTS.filter(p => p.feat).slice(0, 8);
-    const cats = [
+    const quarters = [
       { id: 'indoor',    img: 'monstera-deliciosa' },
       { id: 'outdoor',   img: 'english-lavender' },
       { id: 'succulent', img: 'golden-barrel' },
       { id: 'flowering', img: 'phalaenopsis-orchid' }
     ];
+    const count = c => DATA.PRODUCTS.filter(p => p.cat === c).length;
 
     return '' +
-    '<section class="hero"><div class="wrap">' +
-      '<div class="hero-grid">' +
-        '<div>' +
-          '<h1><span class="ln">' + esc(t('hero.title1')) + '</span>' +
-            '<span class="ln">' + esc(t('hero.title2')) + '</span>' +
-            '<span class="ln"><em>' + esc(t('hero.title3')) + '</em></span></h1>' +
-          '<p class="lead">' + esc(t('hero.sub')) + '</p>' +
-          '<div class="hero-cta">' +
-            '<a class="btn btn-primary btn-lg" href="#/shop">' + esc(t('hero.cta1')) + ICON.arrow + '</a>' +
-            '<a class="btn btn-ghost btn-lg" href="#/care">' + ICON.chat + esc(t('hero.cta2')) + '</a>' +
-          '</div>' +
+    '<section class="garden"><div class="wrap">' +
+      '<div class="inscription">' +
+        '<h1><span class="ln">' + esc(t('hero.title1')) + '</span>' +
+          '<span class="ln">' + esc(t('hero.title2')) + '</span>' +
+          '<span class="ln"><em>' + esc(t('hero.title3')) + '</em></span></h1>' +
+        '<p>' + esc(t('hero.sub')) + '</p>' +
+      '</div>' +
+
+      '<div class="garden-frame"><div class="garden-plan">' +
+        quarters.map(function (q, i) {
+          return '<a class="quarter q' + (i + 1) + '" href="#/shop?cat=' + q.id + '">' +
+            pimgSrc(q.img) +
+            '<span class="q-count">' + count(q.id) + ' ' + esc(t('shop.sub')) + '</span>' +
+            '<span class="q-name">' + esc(t('cat.' + q.id)) + '</span>' +
+            '<span class="q-enter">' + esc(t('p.view')) + ICON.arrow + '</span>' +
+          '</a>';
+        }).join('') +
+        '<div class="channel channel-v"></div>' +
+        '<div class="channel channel-h">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5" stroke-linecap="round"/></svg>' +
+          '<input class="garden-search" id="gardenSearch" type="search" autocomplete="off" ' +
+            'placeholder="' + esc(t('shop.search.ph')) + '" aria-label="' + esc(t('nav.search')) + '">' +
         '</div>' +
-        '<div class="hero-art">' +
-          '<img src="assets/img/ui/hero.svg" alt="" width="900" height="820">' +
-          '<div class="hero-note">' + esc(t('hero.note')) + '</div>' +
-          '<div class="hero-badge"><b>4.8</b><span>★★★★★<br>2 400+ reviews</span></div>' +
-        '</div>' +
+      '</div></div>' +
+
+      '<div class="garden-actions">' +
+        '<a class="btn btn-primary btn-lg" href="#/shop">' + esc(t('hero.cta1')) + ICON.arrow + '</a>' +
+        '<a class="btn btn-ghost btn-lg" href="#/care">' + ICON.chat + esc(t('hero.cta2')) + '</a>' +
+        '<span class="garden-note">' + esc(t('hero.note')) + '</span>' +
       '</div>' +
 
       '<div class="feature-strip">' +
@@ -170,12 +183,8 @@
         '<h2>' + esc(t('coll.title')) + '</h2>' +
         '<p class="lead">' + esc(t('coll.sub')) + '</p>' +
       '</div>' +
-      '<div class="cat-grid">' + cats.map(function (c) {
-        return '<a class="cat-card" href="#/shop?cat=' + c.id + '">' +
-          '<img src="assets/img/plants/' + c.img + '.svg" alt="" loading="lazy" width="560" height="560">' +
-          '<div class="cat-body"><div><b>' + esc(t('cat.' + c.id)) + '</b><span>' + esc(t('cat.' + c.id + '.s')) + '</span></div>' +
-          '<span class="cat-go">' + ICON.arrow + '</span></div></a>';
-      }).join('') + '</div>' +
+      '<div class="prod-grid">' + feat.map(productCard).join('') + '</div>' +
+      '<div class="center" style="margin-top:34px"><a class="btn btn-ghost" href="#/shop">' + esc(t('feat.all')) + ICON.arrow + '</a></div>' +
     '</div></section>' +
 
     '<section class="section" style="padding-top:0"><div class="wrap">' +
@@ -185,7 +194,7 @@
           '<div class="about-quote">' + esc(t('about.quote')) + '</div>' +
         '</div>' +
         '<div>' +
-          '<h2 style="margin:12px 0 16px">' + esc(t('about.title1')) + '<br>' + esc(t('about.title2')) + '</h2>' +
+          '<h2 style="margin:0 0 16px">' + esc(t('about.title1')) + '<br>' + esc(t('about.title2')) + '</h2>' +
           '<p class="lead">' + esc(t('about.body')) + '</p>' +
           '<div class="about-row" style="margin-top:26px">' +
             '<a class="btn btn-primary" href="#/about">' + esc(t('about.cta')) + ICON.arrow + '</a>' +
@@ -197,15 +206,6 @@
           '</div>' +
         '</div>' +
       '</div>' +
-    '</div></section>' +
-
-    '<section class="section" style="padding-top:0"><div class="wrap">' +
-      '<div class="section-head center">' +
-        '<h2>' + esc(t('feat.title')) + '</h2>' +
-        '<p class="lead">' + esc(t('feat.sub')) + '</p>' +
-      '</div>' +
-      '<div class="prod-grid">' + feat.map(productCard).join('') + '</div>' +
-      '<div class="center" style="margin-top:34px"><a class="btn btn-ghost" href="#/shop">' + esc(t('feat.all')) + ICON.arrow + '</a></div>' +
     '</div></section>' +
 
     '<section class="section" style="padding-top:0"><div class="wrap">' +
@@ -227,6 +227,12 @@
       '</div>' +
     '</div></section>';
   };
+
+  /** Scenery plant for the garden quarters: transparent ground, so it sits
+      on the tile rather than in a pale box. */
+  function pimgSrc(slug) {
+    return '<img src="assets/img/world/q-' + slug + '.svg" alt="" loading="lazy" width="560" height="560">';
+  }
 
   /* ------------------------------------------------------------- shop */
   let shopState = { cat: 'all', max: 100, light: [], diff: [], pet: false, sort: 'featured', q: '' };
@@ -1094,6 +1100,7 @@
   }
 
   function afterRender(r, params) {
+    if (r.name === 'home') wireGarden();
     if (r.name === 'shop') {
       applyShop();
       wireFilters();
@@ -1126,6 +1133,20 @@
     /* Add-to-cart, wishlist and accordions are bound once, by delegation, in
        boot(). Re-rendering just the product grid (a filter or sort change)
        must not be able to leave those buttons dead. */
+  }
+
+  /** The water channel is the search field; Enter walks into the garden. */
+  function wireGarden() {
+    const input = document.getElementById('gardenSearch');
+    if (!input) return;
+    const go = function () {
+      const v = input.value.trim();
+      if (!v) { location.hash = '#/shop'; return; }
+      shopState.q = v;
+      shopState.cat = 'all';
+      location.hash = '#/shop';
+    };
+    input.onkeydown = function (e) { if (e.key === 'Enter') { e.preventDefault(); go(); } };
   }
 
   function wireFilters() {
