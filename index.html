@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GreenHaven Nursery — Plants, Flowers & AI Plant Care</title>
+<meta name="description" content="Buy healthy indoor and outdoor plants, track your order, and ask our AI plant doctor anything about plant care.">
+<meta name="theme-color" content="#1e4d33">
+<link rel="icon" href="assets/img/ui/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<meta property="og:title" content="GreenHaven Nursery">
+<meta property="og:description" content="Plants, flowers and an AI plant-care doctor — in five languages.">
+<meta property="og:type" content="website">
+</head>
+<body>
+
+<div class="topbar">
+  <span data-i18n="topbar.msg">Free delivery on orders over $75 · Plant care support for life</span>
+</div>
+
+<header class="site-head" id="head">
+  <div class="wrap nav">
+    <a href="#/" class="logo" aria-label="GreenHaven home">
+      <svg class="logo-mark" viewBox="0 0 48 48" aria-hidden="true">
+        <circle cx="24" cy="24" r="23" fill="#1e4d33"/>
+        <path d="M24 38c0-11 5.5-18.5 16-20-1.5 12.5-7 18-16 20Z" fill="#8cc9a0"/>
+        <path d="M24 38C16 31 8 29 8 15c11 2 16 11 16 23Z" fill="#c2a05e"/>
+        <path d="M24 40V24" stroke="#f2efe3" stroke-width="2.2" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text"><b>GreenHaven</b><span>Nursery</span></span>
+    </a>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#/"        data-route="home"    data-i18n="nav.home">Home</a>
+      <a href="#/shop"    data-route="shop"    data-i18n="nav.shop">Plants</a>
+      <a href="#/care"    data-route="care"    data-i18n="nav.care">AI Care</a>
+      <a href="#/track"   data-route="track"   data-i18n="nav.track">Track Order</a>
+      <a href="#/about"   data-route="about"   data-i18n="nav.about">About</a>
+      <a href="#/contact" data-route="contact" data-i18n="nav.contact">Contact</a>
+    </nav>
+
+    <div class="nav-tools">
+      <div class="search-wrap">
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5" stroke-linecap="round"/></svg>
+          <input type="search" id="search" autocomplete="off" data-i18n-ph="shop.search.ph" placeholder="Search by name…" aria-label="Search plants">
+        </div>
+        <div class="search-pop" id="searchPop"></div>
+      </div>
+
+      <div class="picker" id="langPicker">
+        <button class="picker-btn" id="langBtn" aria-haspopup="true" aria-expanded="false">
+          <span class="flag" id="langFlag">🇬🇧</span>
+          <span id="langLabel">EN</span>
+          <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="m6 9 6 6 6-6" stroke-linecap="round"/></svg>
+        </button>
+        <div class="picker-menu" id="langMenu" role="menu"></div>
+      </div>
+
+      <div class="picker" id="curPicker">
+        <button class="picker-btn" id="curBtn" aria-haspopup="true" aria-expanded="false">
+          <span id="curLabel">USD</span>
+          <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="m6 9 6 6 6-6" stroke-linecap="round"/></svg>
+        </button>
+        <div class="picker-menu" id="curMenu" role="menu"></div>
+      </div>
+
+      <a href="#/cart" class="icon-btn" id="cartBtn" aria-label="Cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 7h13l-1.3 9.3a2 2 0 0 1-2 1.7H9.3a2 2 0 0 1-2-1.7L6 7Z" stroke-linejoin="round"/><path d="M9 7a3 3 0 0 1 6 0" stroke-linecap="round"/><path d="M3 4h1.6a1 1 0 0 1 1 .8L6 7" stroke-linecap="round"/></svg>
+        <span class="cart-count" id="cartCount" hidden>0</span>
+      </a>
+
+      <button class="icon-btn burger" id="burger" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer-back" id="drawerBack"></div>
+<aside class="drawer" id="drawer" aria-label="Menu">
+  <div class="drawer-head">
+    <b style="font-family:var(--display);font-size:1.1rem" data-i18n="nav.menu">Menu</b>
+    <button class="icon-btn" id="drawerClose" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <a href="#/"        data-route="home"    data-i18n="nav.home">Home</a>
+  <a href="#/shop"    data-route="shop"    data-i18n="nav.shop">Plants</a>
+  <a href="#/care"    data-route="care"    data-i18n="nav.care">AI Care</a>
+  <a href="#/track"   data-route="track"   data-i18n="nav.track">Track Order</a>
+  <a href="#/about"   data-route="about"   data-i18n="nav.about">About</a>
+  <a href="#/contact" data-route="contact" data-i18n="nav.contact">Contact</a>
+  <a href="#/cart"    data-route="cart"    data-i18n="nav.cart">Cart</a>
+  <div class="drawer-pickers">
+    <h6 data-i18n="c.language">Language</h6>
+    <div class="row" id="drawerLang"></div>
+    <h6 data-i18n="c.currency">Currency</h6>
+    <div class="row" id="drawerCur"></div>
+  </div>
+</aside>
+
+<main id="app" role="main"></main>
+
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <div class="logo">
+        <svg class="logo-mark" viewBox="0 0 48 48" aria-hidden="true">
+          <circle cx="24" cy="24" r="23" fill="#2d6b46"/>
+          <path d="M24 38c0-11 5.5-18.5 16-20-1.5 12.5-7 18-16 20Z" fill="#a8d9b8"/>
+          <path d="M24 38C16 31 8 29 8 15c11 2 16 11 16 23Z" fill="#c2a05e"/>
+        </svg>
+        <span class="logo-text"><b>GreenHaven</b><span>Nursery</span></span>
+      </div>
+      <p data-i18n="ft.tag">Plants for a greener tomorrow.</p>
+      <div class="socials">
+        <a href="#/contact" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+        <a href="#/contact" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h3l.5-3H13V9c0-1 .3-1.5 1.6-1.5H17V4.8c-.3 0-1.4-.1-2.6-.1-2.6 0-4.4 1.6-4.4 4.5V11H7v3h3v8h3Z"/></svg></a>
+        <a href="#/contact" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 4 2.8 11.2c-1 .4-1 1.7 0 2l4.5 1.4 1.7 5.2c.3.9 1.4 1 2 .3l2.4-2.5 4.5 3.3c.8.6 1.9.2 2.1-.8L22.9 5.3C23.1 4.4 22 3.6 21 4Zm-3.4 4-7 6.2-.3 3-1.4-4.3 8.7-4.9Z"/></svg></a>
+        <a href="#/contact" aria-label="Pinterest"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.6 19.3c-.1-.8-.1-2 .1-2.9l1.2-5s-.3-.6-.3-1.5c0-1.4.8-2.5 1.8-2.5.9 0 1.3.6 1.3 1.4 0 .9-.6 2.2-.9 3.4-.2 1 .5 1.9 1.5 1.9 1.9 0 3.2-2.4 3.2-5.2 0-2.1-1.5-3.7-4.1-3.7a4.7 4.7 0 0 0-4.9 4.7c0 .9.3 1.5.7 2 .2.2.2.3.1.5l-.2.8c-.1.3-.3.4-.5.2-1.3-.5-1.9-2-1.9-3.6 0-2.7 2.3-5.9 6.8-5.9 3.6 0 6 2.6 6 5.4 0 3.7-2 6.5-5.1 6.5-1 0-2-.6-2.3-1.2l-.6 2.5c-.2.8-.7 1.8-1.1 2.4A10 10 0 1 0 12 2Z"/></svg></a>
+      </div>
+    </div>
+
+    <div>
+      <h5 data-i18n="ft.shop">Shop</h5>
+      <ul>
+        <li><a href="#/shop?cat=indoor"    data-i18n="cat.indoor">Indoor Plants</a></li>
+        <li><a href="#/shop?cat=outdoor"   data-i18n="cat.outdoor">Outdoor Plants</a></li>
+        <li><a href="#/shop?cat=succulent" data-i18n="cat.succulent">Succulents</a></li>
+        <li><a href="#/shop?cat=flowering" data-i18n="cat.flowering">Flowering</a></li>
+        <li><a href="#/shop?cat=bonsai"    data-i18n="cat.bonsai">Bonsai</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h5 data-i18n="ft.help">Help</h5>
+      <ul>
+        <li><a href="#/track"   data-i18n="nav.track">Track Order</a></li>
+        <li><a href="#/care"    data-i18n="nav.care">AI Care</a></li>
+        <li><a href="#/contact" data-i18n="ft.faq">FAQ</a></li>
+        <li><a href="#/contact" data-i18n="ft.shipping">Shipping</a></li>
+        <li><a href="#/contact" data-i18n="ft.returns">Returns</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h5 data-i18n="ft.company">Company</h5>
+      <ul>
+        <li><a href="#/about"   data-i18n="nav.about">About</a></li>
+        <li><a href="#/contact" data-i18n="nav.contact">Contact</a></li>
+        <li><a href="#/about"   data-i18n="ft.privacy">Privacy</a></li>
+        <li><a href="#/about"   data-i18n="ft.terms">Terms</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h5 data-i18n="ft.newsletter">Plant care tips in your inbox</h5>
+      <form class="news" id="newsForm">
+        <input type="email" required data-i18n-ph="ft.nph" placeholder="Your email" aria-label="Email">
+        <button class="btn btn-accent btn-sm" type="submit" data-i18n="ft.njoin">Join</button>
+      </form>
+      <p class="tiny" style="margin-top:12px;color:#9fae9f" data-i18n="ft.demo">A demonstration project — no real orders are fulfilled and no payments are taken.</p>
+    </div>
+  </div>
+
+  <div class="wrap foot-base">
+    <span>© <span id="year">2026</span> GreenHaven Nursery. <span data-i18n="ft.rights">All rights reserved.</span></span>
+    <span>UZ · EN · RU · 中文 · العربية</span>
+  </div>
+</footer>
+
+<div class="toasts" id="toasts" aria-live="polite"></div>
+
+<script src="assets/js/i18n.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/kb.js"></script>
+<script src="assets/js/kb-topics.js"></script>
+<script src="assets/js/kb-topics2.js"></script>
+<script src="assets/js/kb-topics3.js"></script>
+<script src="assets/js/ai.js"></script>
+<script src="assets/js/store.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
