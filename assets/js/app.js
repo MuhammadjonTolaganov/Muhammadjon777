@@ -1105,20 +1105,9 @@
       };
     }
 
-    /* delegated controls that appear on many views */
-    $$('[data-add]').forEach(b => b.onclick = function (e) {
-      e.preventDefault();
-      STORE.add(b.dataset.add, 1);
-      b.classList.add('done');
-      b.innerHTML = ICON.check;
-      toast(DATA.name(b.dataset.add, I.lang) + ' — ' + t('p.added'));
-      setTimeout(function () { b.classList.remove('done'); b.innerHTML = ICON.plus; }, 1400);
-    });
-    $$('[data-wish]').forEach(b => b.onclick = function (e) {
-      e.preventDefault();
-      b.classList.toggle('on', toggleWish(b.dataset.wish));
-    });
-    $$('.acc-head').forEach(h => h.onclick = function () { h.parentElement.classList.toggle('open'); });
+    /* Add-to-cart, wishlist and accordions are bound once, by delegation, in
+       boot(). Re-rendering just the product grid (a filter or sort change)
+       must not be able to leave those buttons dead. */
   }
 
   function wireFilters() {
@@ -1393,6 +1382,29 @@
     });
     document.addEventListener('click', function (e) {
       if (!e.target.closest('.picker')) $$('.picker').forEach(x => x.classList.remove('open'));
+    });
+
+    /* One delegated handler for controls that live inside re-rendered markup. */
+    document.addEventListener('click', function (e) {
+      const add = e.target.closest ? e.target.closest('[data-add]') : null;
+      if (add) {
+        e.preventDefault();
+        STORE.add(add.dataset.add, 1);
+        add.classList.add('done');
+        add.innerHTML = ICON.check;
+        toast(DATA.name(add.dataset.add, I.lang) + ' — ' + t('p.added'));
+        const btn = add;
+        setTimeout(function () { btn.classList.remove('done'); btn.innerHTML = ICON.plus; }, 1400);
+        return;
+      }
+      const wish = e.target.closest ? e.target.closest('[data-wish]') : null;
+      if (wish) {
+        e.preventDefault();
+        wish.classList.toggle('on', toggleWish(wish.dataset.wish));
+        return;
+      }
+      const acc = e.target.closest ? e.target.closest('.acc-head') : null;
+      if (acc) acc.parentElement.classList.toggle('open');
     });
 
     document.getElementById('burger').onclick = openDrawer;
