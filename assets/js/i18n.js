@@ -180,7 +180,7 @@ en: {
 
   'ab.title': 'About GreenHaven', 'ab.lead': 'We are a family nursery that has been growing plants for five years and shipping them to plant lovers in more than 20 countries.',
   'ab.story': 'Our story', 'ab.storytext': 'GreenHaven began as a single glasshouse and a simple belief: that everyone deserves something living in their home. Today our team of growers, botanists and couriers raises more than a thousand varieties, from hardy snake plants to rare variegated monsteras. Every plant is grown without synthetic pesticides, hardened off before it ships, and packed in plastic-free, compostable materials.',
-  'ab.values': 'What we stand for',
+  'ab.photos': 'Photography credits', 'ab.photoslead': 'Plants without a photograph are shown as illustrations drawn for this site.', 'ab.values': 'What we stand for',
   'ab.v1': 'Grown, not resold', 'ab.v1s': 'Almost everything we sell is propagated in our own glasshouses.',
   'ab.v2': 'Plastic-free shipping', 'ab.v2s': 'Moulded pulp, paper tape and compostable wrap only.',
   'ab.v3': 'Advice for life', 'ab.v3s': 'Free care support for as long as you own the plant.',
@@ -357,7 +357,7 @@ uz: {
 
   'ab.title': 'GreenHaven haqida', 'ab.lead': 'Biz besh yildan beri o‘simlik yetishtirib, 20 dan ortiq mamlakatdagi o‘simlikseverlarga jo‘natayotgan oilaviy ko‘chatzormiz.',
   'ab.story': 'Bizning tariximiz', 'ab.storytext': 'GreenHaven bitta issiqxona va oddiy ishonchdan boshlandi: har bir insonning uyida tirik narsa bo‘lishi kerak. Bugun bog‘bonlar, botaniklar va kuryerlardan iborat jamoamiz mingdan ortiq turni — chidamli sansevieriyadan noyob variegat monsteragacha — yetishtiradi. Har bir o‘simlik sintetik pestitsidlarsiz o‘stiriladi, jo‘natishdan oldin chiniqtiriladi va plastiksiz, parchalanadigan materialda qadoqlanadi.',
-  'ab.values': 'Biz nimaga tayanamiz',
+  'ab.photos': 'Fotosuratlar mualliflari', 'ab.photoslead': 'Fotosurati yo‘q o‘simliklar shu sayt uchun chizilgan rasmlarda ko‘rsatilgan.', 'ab.values': 'Biz nimaga tayanamiz',
   'ab.v1': 'Yetishtiramiz, qayta sotmaymiz', 'ab.v1s': 'Sotadiganimizning deyarli barchasi o‘z issiqxonamizda ko‘paytiriladi.',
   'ab.v2': 'Plastiksiz jo‘natish', 'ab.v2s': 'Faqat qolipli qog‘oz massasi, qog‘oz lenta va parchalanadigan o‘ram.',
   'ab.v3': 'Umrbod maslahat', 'ab.v3s': 'O‘simlik sizda ekan, parvarish yordami bepul.',
@@ -534,7 +534,7 @@ ru: {
 
   'ab.title': 'О GreenHaven', 'ab.lead': 'Мы семейный питомник: пять лет выращиваем растения и отправляем их любителям более чем в 20 стран.',
   'ab.story': 'Наша история', 'ab.storytext': 'GreenHaven начался с одной теплицы и простой веры: у каждого дома должно быть что-то живое. Сегодня наша команда садоводов, ботаников и курьеров выращивает более тысячи сортов — от выносливой сансевиерии до редкой вариегатной монстеры. Каждое растение выращено без синтетических пестицидов, закалено перед отправкой и упаковано в компостируемые материалы без пластика.',
-  'ab.values': 'Наши принципы',
+  'ab.photos': 'Авторы фотографий', 'ab.photoslead': 'Растения без фотографии показаны иллюстрациями, нарисованными для этого сайта.', 'ab.values': 'Наши принципы',
   'ab.v1': 'Выращиваем, а не перепродаём', 'ab.v1s': 'Почти всё, что мы продаём, размножено в наших теплицах.',
   'ab.v2': 'Упаковка без пластика', 'ab.v2s': 'Только формованная целлюлоза, бумажный скотч и компостируемая плёнка.',
   'ab.v3': 'Советы навсегда', 'ab.v3s': 'Бесплатная поддержка по уходу, пока растение у вас.',
@@ -711,7 +711,7 @@ zh: {
 
   'ab.title': '关于 GreenHaven', 'ab.lead': '我们是一家家族苗圃，培育植物五年，并将它们寄往 20 多个国家的植物爱好者手中。',
   'ab.story': '我们的故事', 'ab.storytext': 'GreenHaven 始于一间玻璃温室和一个朴素的信念：每个人的家中都该有一点生命。如今，我们由园艺师、植物学家与配送团队组成，培育一千多个品种，从强健的虎尾兰到稀有的锦斑龟背竹。每一株都不使用合成农药，发货前经过炼苗，并以无塑料、可堆肥的材料包装。',
-  'ab.values': '我们坚持的理念',
+  'ab.photos': '图片来源', 'ab.photoslead': '没有照片的植物以本站绘制的插画呈现。', 'ab.values': '我们坚持的理念',
   'ab.v1': '自家培育，而非转售', 'ab.v1s': '我们出售的几乎所有植物都在自家温室繁殖。',
   'ab.v2': '无塑料配送', 'ab.v2s': '只用模塑纸浆、纸胶带和可堆肥包装材料。',
   'ab.v3': '终身养护咨询', 'ab.v3s': '只要植物在您手中，养护支持始终免费。',
@@ -888,7 +888,7 @@ ar: {
 
   'ab.title': 'عن غرين هيفن', 'ab.lead': 'نحن مشتل عائلي يزرع النباتات منذ خمس سنوات ويشحنها إلى محبي النبات في أكثر من ٢٠ دولة.',
   'ab.story': 'قصتنا', 'ab.storytext': 'بدأ غرين هيفن ببيت زجاجي واحد وإيمان بسيط: كل إنسان يستحق شيئًا حيًّا في بيته. واليوم يرعى فريقنا من المزارعين وعلماء النبات ومندوبي التوصيل أكثر من ألف صنف، من سانسيفيريا القوية إلى المونستيرا المبرقشة النادرة. تُزرع كل نبتة دون مبيدات صناعية، وتُقسّى قبل الشحن، وتُغلّف بمواد قابلة للتحلل وخالية من البلاستيك.',
-  'ab.values': 'ما نؤمن به',
+  'ab.photos': 'حقوق الصور', 'ab.photoslead': 'النباتات التي لا توجد لها صورة تُعرض برسوم أُنشئت لهذا الموقع.', 'ab.values': 'ما نؤمن به',
   'ab.v1': 'نزرع ولا نعيد البيع', 'ab.v1s': 'نُكثّر معظم ما نبيعه في بيوتنا الزجاجية.',
   'ab.v2': 'شحن خالٍ من البلاستيك', 'ab.v2s': 'لبّ ورقي مقولب وشريط ورقي وتغليف قابل للتحلل فقط.',
   'ab.v3': 'إرشاد مدى الحياة', 'ab.v3s': 'دعم مجاني للعناية ما دامت النبتة لديك.',

@@ -1015,6 +1015,16 @@
           '</div></div>' +
       '</div>' +
       '<section class="section" style="padding-bottom:0">' +
+        '<h2>' + esc(t('ab.photos')) + '</h2>' +
+        '<p class="lead" style="margin-top:10px">' + esc(t('ab.photoslead')) + '</p>' +
+        '<ul class="credit-list">' + Object.keys(root_credits()).sort().map(function (id) {
+          const c = root_credits()[id];
+          return '<li><b>' + esc(DATA.name(id, I.lang)) + '</b>' +
+            '<span>' + esc(c.author) + ' · ' + esc(c.licence) + ' · ' +
+            '<a href="' + esc(c.page) + '" target="_blank" rel="noopener">Wikimedia Commons</a></span></li>';
+        }).join('') + '</ul>' +
+      '</section>' +
+      '<section class="section" style="padding-bottom:0">' +
         '<h2>' + esc(t('ab.values')) + '</h2>' +
         '<div class="values-grid">' + ['1', '2', '3', '4'].map(function (n) {
           return '<div class="value"><b>' + esc(t('ab.v' + n)) + '</b><span>' + esc(t('ab.v' + n + 's')) + '</span></div>';
@@ -1056,6 +1066,8 @@
       '</div>' +
     '</div></div>';
   };
+
+  function root_credits() { return window.PHOTO_CREDITS || {}; }
 
   function notFound() {
     return '<div class="wrap" style="padding-block:80px"><div class="empty-state">' + ICON.leaf +

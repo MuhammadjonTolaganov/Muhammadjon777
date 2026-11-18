@@ -275,20 +275,35 @@
   /* Real photographs, from Wikimedia Commons under free licences; see
      assets/img/photos/credits.json for author and licence per file. Any
      plant without an entry keeps its illustration. */
+  /* Real photographs under free licences (Wikimedia Commons and Openverse);
+     author and licence per file in assets/img/photos/credits.json. A plant
+     with no entry keeps its illustration. */
   const PHOTOS = {
+    'african-violet': 'assets/img/photos/african-violet.jpg',
+    'aloe-vera': 'assets/img/photos/aloe-vera.jpg',
     'anthurium': 'assets/img/photos/anthurium.jpg',
+    'areca-palm': 'assets/img/photos/areca-palm.jpg',
+    'bird-of-paradise': 'assets/img/photos/bird-of-paradise.jpg',
     'boston-fern': 'assets/img/photos/boston-fern.jpg',
     'dendrobium-orchid': 'assets/img/photos/dendrobium-orchid.jpg',
     'echeveria-rosette': 'assets/img/photos/echeveria-rosette.jpg',
     'ficus-bonsai': 'assets/img/photos/ficus-bonsai.jpg',
     'golden-barrel': 'assets/img/photos/golden-barrel.jpg',
     'golden-pothos': 'assets/img/photos/golden-pothos.jpg',
+    'hibiscus': 'assets/img/photos/hibiscus.jpg',
     'jade-plant': 'assets/img/photos/jade-plant.jpg',
+    'juniper-bonsai': 'assets/img/photos/juniper-bonsai.jpg',
     'maidenhair-fern': 'assets/img/photos/maidenhair-fern.jpg',
+    'monstera-adansonii': 'assets/img/photos/monstera-adansonii.jpg',
     'monstera-deliciosa': 'assets/img/photos/monstera-deliciosa.jpg',
     'peace-lily': 'assets/img/photos/peace-lily.jpg',
     'phalaenopsis-orchid': 'assets/img/photos/phalaenopsis-orchid.jpg',
-    'san-pedro-cactus': 'assets/img/photos/san-pedro-cactus.jpg'
+    'rubber-plant': 'assets/img/photos/rubber-plant.jpg',
+    'san-pedro-cactus': 'assets/img/photos/san-pedro-cactus.jpg',
+    'snake-plant': 'assets/img/photos/snake-plant.jpg',
+    'string-of-hearts': 'assets/img/photos/string-of-hearts.jpg',
+    'sweet-basil': 'assets/img/photos/sweet-basil.jpg',
+    'zz-plant': 'assets/img/photos/zz-plant.jpg'
   };
 
   const byId = {};

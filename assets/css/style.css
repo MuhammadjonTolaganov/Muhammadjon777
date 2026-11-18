@@ -1038,3 +1038,12 @@ p  { margin: 0 0 1em; }
   font-size: .85rem;
 }
 .drawer-pickers button.on { background: var(--brand); border-color: var(--brand); color: #fff; }
+
+/* photograph credits (CC BY-SA requires attribution) */
+.credit-list { list-style: none; margin: 18px 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
+.credit-list li { background: var(--surface); border: 1px solid var(--line);
+  padding: 11px 14px; font-size: .84rem; }
+.credit-list b { display: block; font-family: var(--display); font-size: .96rem; }
+.credit-list span { color: var(--ink-3); }
+.credit-list a { color: var(--brand-2); text-decoration: underline; text-underline-offset: 2px; }
