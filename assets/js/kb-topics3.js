@@ -234,9 +234,9 @@ P({ id:'humidity', cat:'environment',
         '- مقياس رطوبة رخيص يُنهي كل التخمين. استهدف ٥٠٪ كحد أدنى، و٦٠٪ للكالاثيا والسرخسيات.'] } });
 
 P({ id:'toxicity', cat:'safety',
-  kw:{ en:['toxic','poison','safe for cats','safe for dogs','pet safe','child safe','ate a leaf','animal'],
-       uz:['zaharli','mushuk uchun','it uchun','bola uchun','xavfsiz','barg yedi','hayvon'],
-       ru:['ядовит','токсич','безопасно для кошек','для собак','для детей','съел лист','питомц'],
+  kw:{ en:['toxic','poison','poisonous','safe for cats','safe for dogs','pet safe','child safe','ate a leaf','animal','cat','cats','dog','dogs','pet','pets','kitten','puppy','baby','toddler'],
+       uz:['zaharli','zahar','mushuk','it uchun','bola','xavfsiz','barg yedi','hayvon','uy hayvoni'],
+       ru:['ядовит','токсич','опасно','кошк','кот','соба','детей','ребен','съел лист','питомц','животн'],
        zh:['有毒','对猫','对狗','宠物安全','孩子','误食','安全吗'],
        ar:['سام','سمي','للقطط','للكلاب','للأطفال','امن','اكل ورقه','حيوان اليف','ضار'] },
   title:{ en:'Plants, pets and children', uz:'O‘simliklar, uy hayvonlari va bolalar', ru:'Растения, питомцы и дети', zh:'植物、宠物与孩子', ar:'النباتات والحيوانات الأليفة والأطفال' },

@@ -66,16 +66,34 @@
     return i === -1;
   }
 
+  /**
+   * Image source for a product. Prefers a real photograph and falls back to
+   * the generated illustration, including when the photo 404s at runtime.
+   */
+  function pimg(p, cls, w, h, lazy) {
+    const alt = esc(DATA.name(p.id, I.lang));
+    const fallback = esc(p.img);
+    const src = esc(p.photo || p.img);
+    const onerr = p.photo
+      ? ' onerror="this.onerror=null;this.src=&quot;' + fallback + '&quot;"'
+      : '';
+    return '<img' + (cls ? ' class="' + cls + '"' : '') + ' src="' + src + '" alt="' + alt + '"' +
+      (w ? ' width="' + w + '" height="' + h + '"' : '') +
+      (lazy ? ' loading="lazy"' : '') + onerr + '>';
+  }
+
   /* ------------------------------------------------------- product card */
-  function productCard(p) {
+  let cardSeq = 0;
+  function productCard(p, i) {
     const lang = I.lang;
+    const idx = (typeof i === 'number') ? i : (cardSeq++);
     const out = p.stock <= 0;
     const wished = wishlist().indexOf(p.id) !== -1;
     return '' +
-    '<article class="card' + (out ? ' out' : '') + '" data-id="' + p.id + '">' +
+    '<article class="card' + (out ? ' out' : '') + '" data-id="' + p.id + '" style="--i:' + idx + '">' +
       '<a class="card-media" href="#/product/' + p.id + '">' +
         (p.badge ? '<span class="badge ' + p.badge + '">' + esc(badgeLabel(p.badge)) + '</span>' : '') +
-        '<img src="' + p.img + '" alt="' + esc(DATA.name(p.id, lang)) + '" loading="lazy" width="560" height="560">' +
+        pimg(p, null, 560, 560, true) +
       '</a>' +
       '<button class="wish' + (wished ? ' on' : '') + '" data-wish="' + p.id + '" aria-label="Save">' + ICON.heart + '</button>' +
       '<div class="card-body">' +
@@ -123,8 +141,9 @@
     '<section class="hero"><div class="wrap">' +
       '<div class="hero-grid">' +
         '<div>' +
-          '<span class="eyebrow">' + esc(t('hero.eyebrow')) + '</span>' +
-          '<h1>' + esc(t('hero.title1')) + '<br>' + esc(t('hero.title2')) + ' <em>' + esc(t('hero.title3')) + '</em></h1>' +
+          '<h1><span class="ln">' + esc(t('hero.title1')) + '</span>' +
+            '<span class="ln">' + esc(t('hero.title2')) + '</span>' +
+            '<span class="ln"><em>' + esc(t('hero.title3')) + '</em></span></h1>' +
           '<p class="lead">' + esc(t('hero.sub')) + '</p>' +
           '<div class="hero-cta">' +
             '<a class="btn btn-primary btn-lg" href="#/shop">' + esc(t('hero.cta1')) + ICON.arrow + '</a>' +
@@ -146,9 +165,8 @@
       '</div>' +
     '</div></section>' +
 
-    '<section class="section reveal"><div class="wrap">' +
+    '<section class="section"><div class="wrap">' +
       '<div class="section-head center">' +
-        '<span class="eyebrow">' + esc(t('coll.eyebrow')) + '</span>' +
         '<h2>' + esc(t('coll.title')) + '</h2>' +
         '<p class="lead">' + esc(t('coll.sub')) + '</p>' +
       '</div>' +
@@ -160,14 +178,13 @@
       }).join('') + '</div>' +
     '</div></section>' +
 
-    '<section class="section reveal" style="padding-top:0"><div class="wrap">' +
+    '<section class="section" style="padding-top:0"><div class="wrap">' +
       '<div class="about-grid">' +
         '<div class="about-art">' +
           '<img src="assets/img/ui/about.svg" alt="" loading="lazy" width="820" height="840">' +
           '<div class="about-quote">' + esc(t('about.quote')) + '</div>' +
         '</div>' +
         '<div>' +
-          '<span class="eyebrow">' + esc(t('about.eyebrow')) + '</span>' +
           '<h2 style="margin:12px 0 16px">' + esc(t('about.title1')) + '<br>' + esc(t('about.title2')) + '</h2>' +
           '<p class="lead">' + esc(t('about.body')) + '</p>' +
           '<div class="about-row" style="margin-top:26px">' +
@@ -182,9 +199,8 @@
       '</div>' +
     '</div></section>' +
 
-    '<section class="section reveal" style="padding-top:0"><div class="wrap">' +
+    '<section class="section" style="padding-top:0"><div class="wrap">' +
       '<div class="section-head center">' +
-        '<span class="eyebrow">' + esc(t('feat.eyebrow')) + '</span>' +
         '<h2>' + esc(t('feat.title')) + '</h2>' +
         '<p class="lead">' + esc(t('feat.sub')) + '</p>' +
       '</div>' +
@@ -192,9 +208,8 @@
       '<div class="center" style="margin-top:34px"><a class="btn btn-ghost" href="#/shop">' + esc(t('feat.all')) + ICON.arrow + '</a></div>' +
     '</div></section>' +
 
-    '<section class="section reveal" style="padding-top:0"><div class="wrap">' +
+    '<section class="section" style="padding-top:0"><div class="wrap">' +
       '<div class="section-head center">' +
-        '<span class="eyebrow">' + esc(t('why.eyebrow')) + '</span>' +
         '<h2>' + esc(t('why.title')) + '</h2>' +
       '</div>' +
       '<div class="why-grid">' +
@@ -205,7 +220,7 @@
       '</div>' +
     '</div></section>' +
 
-    '<section class="reveal" style="padding-bottom:70px"><div class="wrap">' +
+    '<section style="padding-bottom:70px"><div class="wrap">' +
       '<div class="band">' +
         '<div><h2>' + esc(t('band.title')) + '</h2><p>' + esc(t('band.sub')) + '</p></div>' +
         '<a class="btn btn-light btn-lg" href="#/shop">' + esc(t('band.cta')) + ICON.arrow + '</a>' +
@@ -303,6 +318,7 @@
     const grid = document.getElementById('shopGrid');
     const cnt = document.getElementById('shopCount');
     if (!grid) return;
+    cardSeq = 0;
     grid.innerHTML = list.length
       ? list.map(productCard).join('')
       : '<div class="empty-state" style="grid-column:1/-1">' + ICON.leaf + '<p>' + esc(t('shop.none')) + '</p></div>';
@@ -328,7 +344,7 @@
     '</div>' +
     '<div class="wrap" style="padding-bottom:70px">' +
       '<div class="pd">' +
-        '<div class="pd-art"><img src="' + p.img + '" alt="' + esc(DATA.name(p.id, lang)) + '" width="560" height="560"></div>' +
+        '<div class="pd-art">' + pimg(p, null, 560, 560, false) + '</div>' +
         '<div>' +
           '<span class="card-cat">' + esc(t('cat.' + p.cat)) + '</span>' +
           '<h1>' + esc(DATA.name(p.id, lang)) + '</h1>' +
@@ -443,7 +459,7 @@
     return STORE.getCart().map(function (l) {
       const p = DATA.get(l.id);
       return '<div class="cart-row" data-id="' + p.id + '">' +
-        '<a href="#/product/' + p.id + '"><img src="' + p.img + '" alt="" width="92" height="92"></a>' +
+        '<a href="#/product/' + p.id + '">' + pimg(p, null, 92, 92, true) + '</a>' +
         '<div><a href="#/product/' + p.id + '" class="nm">' + esc(DATA.name(p.id, lang)) + '</a>' +
           '<div class="meta">' + esc(t('cat.' + p.cat)) + ' · ' + esc(p.pot) + '</div>' +
           '<button class="rm" data-rm="' + p.id + '">' + esc(t('cart.remove')) + '</button></div>' +
@@ -567,7 +583,7 @@
         '<div class="review-block"><h4>' + esc(t('tr.contents')) + '</h4>' +
           STORE.getCart().map(function (l) {
             const p = DATA.get(l.id);
-            return '<div class="mini-item"><img src="' + p.img + '" alt=""><div>' +
+            return '<div class="mini-item">' + pimg(p, null, 50, 50, true) + '<div>' +
               '<div class="nm">' + esc(DATA.name(p.id, I.lang)) + '</div>' +
               '<div class="q">× ' + l.qty + '</div></div>' +
               '<div class="p">' + money(p.price * l.qty) + '</div></div>';
@@ -795,7 +811,6 @@
     const pre = params.o || '';
     return '' +
     '<div class="wrap page-head center">' +
-      '<span class="eyebrow" style="justify-content:center">' + esc(t('nav.track')) + '</span>' +
       '<h1 style="margin:12px 0 10px">' + esc(t('tr.title')) + '</h1>' +
       '<p class="lead" style="margin-inline:auto">' + esc(t('tr.sub')) + '</p>' +
     '</div>' +
@@ -852,7 +867,7 @@
         '<div class="info-card"><h3>' + esc(t('tr.contents')) + '</h3>' +
           o.items.map(function (it) {
             const p = DATA.get(it.id);
-            return '<div class="mini-item"><img src="' + p.img + '" alt=""><div>' +
+            return '<div class="mini-item">' + pimg(p, null, 50, 50, true) + '<div>' +
               '<div class="nm">' + esc(DATA.name(p.id, I.lang)) + '</div><div class="q">× ' + it.qty + '</div></div>' +
               '<div class="p">' + money(it.price * it.qty) + '</div></div>';
           }).join('') + '</div>' +
@@ -871,7 +886,6 @@
     const topics = AI.topicList();
     return '' +
     '<div class="wrap page-head center">' +
-      '<span class="eyebrow" style="justify-content:center">' + esc(t('nav.care')) + '</span>' +
       '<h1 style="margin:12px 0 10px">' + esc(t('ai.title')) + '</h1>' +
       '<p class="lead" style="margin-inline:auto">' + esc(t('ai.sub')) + '</p>' +
     '</div>' +
@@ -926,7 +940,7 @@
         extra = '<div class="ai-rel"><div class="lbl">' + esc(t('ai.relatedPlants')) + '</div><div class="ai-rel-row">' +
           m.meta.related.map(function (id) {
             const p = DATA.get(id);
-            return '<a href="#/product/' + id + '"><img src="' + p.img + '" alt="" loading="lazy">' +
+            return '<a href="#/product/' + id + '">' + pimg(p, null, 0, 0, true) +
               '<div class="n">' + esc(DATA.name(id, I.lang)) + '</div></a>';
           }).join('') + '</div></div>';
       }
@@ -1069,10 +1083,14 @@
       a.classList.toggle('active', a.dataset.route === r.name);
     });
 
+    const host = app();
+    host.classList.remove('view-enter');
+    void host.offsetWidth;            /* restart the animation on every route */
+    host.classList.add('view-enter');
+
     afterRender(r, params);
     closeDrawer();
     if (!r.params.keepScroll) window.scrollTo(0, 0);
-    observeReveal();
   }
 
   function afterRender(r, params) {
@@ -1238,11 +1256,18 @@
   }
 
   /* ----------------------------------------------------------- header */
+  let lastCartCount = null;
   function updateCart() {
     const n = STORE.count();
     const el = document.getElementById('cartCount');
     el.textContent = n;
     el.hidden = n === 0;
+    if (lastCartCount !== null && n > lastCartCount) {
+      el.classList.remove('pop');
+      void el.offsetWidth;
+      el.classList.add('pop');
+    }
+    lastCartCount = n;
   }
 
   function buildPickers() {
@@ -1323,7 +1348,7 @@
           return hay.indexOf(q) !== -1;
         }).slice(0, 6);
         pop.innerHTML = hits.length
-          ? hits.map(p => '<a href="#/product/' + p.id + '"><img src="' + p.img + '" alt="">' +
+          ? hits.map(p => '<a href="#/product/' + p.id + '">' + pimg(p, null, 0, 0, true) +
               '<span><span class="nm">' + esc(DATA.name(p.id, I.lang)) + '</span><br>' +
               '<span class="pr">' + money(p.price) + '</span></span></a>').join('')
           : '<div class="empty">' + esc(t('shop.none')) + '</div>';
@@ -1345,22 +1370,9 @@
     });
   }
 
-  let io = null, revealTimer = null;
-  function observeReveal() {
-    const items = $$('.reveal');
-    if (!('IntersectionObserver' in window)) { items.forEach(e => e.classList.add('in')); return; }
-    if (io) io.disconnect();
-    clearTimeout(revealTimer);
-    io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
-      });
-    }, { rootMargin: '200px 0px 100px 0px' });
-    items.forEach(e => io.observe(e));
-    /* Safety net: animation is a nicety, never a reason for content to stay
-       invisible. Anything still hidden after a few seconds is shown anyway. */
-    revealTimer = setTimeout(function () { items.forEach(e => e.classList.add('in')); }, 3000);
-  }
+  /* Scroll reveals were removed deliberately: an identical entrance on every
+     section is decoration, and it put real content behind a timer. The
+     authored motion lives in the hero and in list and feedback transitions. */
 
   /* -------------------------------------------------------------- boot */
   function boot() {

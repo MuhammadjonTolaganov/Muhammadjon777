@@ -269,14 +269,22 @@
 
   const PROMOS = { GREEN10: 10, PLANT20: 20, WELCOME15: 15 };
 
+  /* Real photography, keyed by product id. Drop a file in
+     assets/img/photos/<id>.jpg and add the id here, or point at a full URL.
+     Anything absent falls back to the generated illustration. */
+  const PHOTOS = {
+    // 'monstera-deliciosa': 'assets/img/photos/monstera-deliciosa.jpg',
+  };
+
   const byId = {};
   PRODUCTS.forEach(p => {
-    p.img = 'assets/img/plants/' + p.id + '.svg';
+    p.img = 'assets/img/plants/' + p.id + '.svg';   // always present
+    p.photo = PHOTOS[p.id] || null;                 // preferred when set
     byId[p.id] = p;
   });
 
   root.DATA = {
-    PRODUCTS, CATEGORIES, PROMOS,
+    PRODUCTS, CATEGORIES, PROMOS, PHOTOS,
     get(id) { return byId[id] || null; },
     name(id, lang) { const m = NAMES[lang] || NAMES.en; return m[id] || NAMES.en[id] || id; },
     blurb(id, lang) { const m = BLURBS[lang] || BLURBS.en; return m[id] || BLURBS.en[id] || ''; },

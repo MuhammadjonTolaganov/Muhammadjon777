@@ -25,6 +25,11 @@ Built as a dependency-free static site — no build step, no framework, no backe
 - Every order gets a number (`GH-XXXXXX`), courier and tracking ID
 - Six-stage delivery timeline that advances over time, with a button to step through it
 
+### Real photography
+Products show the generated illustration until a photo is supplied. Drop a file in
+`assets/img/photos/<id>.jpg`, register it in the `PHOTOS` map in `assets/js/data.js`, and it is
+used everywhere. A missing or broken path falls back to the illustration automatically.
+
 ### AI plant-care assistant
 Two tiers, so it always works:
 
@@ -36,6 +41,10 @@ Two tiers, so it always works:
    sent to `claude-opus-5-5` instead. The key is kept in your own browser's `localStorage` and is
    sent only to `api.anthropic.com`. If the request fails, the answer falls back to the built-in
    knowledge base automatically.
+
+It answers plant questions only. Anything else — news, code, maths, homework — gets a short
+apology in the visitor's own language and a nudge back to plant topics. The check runs before
+any network call, so the rule holds on both tiers.
 
 ---
 

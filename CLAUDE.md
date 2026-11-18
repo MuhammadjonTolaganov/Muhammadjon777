@@ -85,6 +85,12 @@ These are not style preferences; each one caused a real failure here.
   `display:grid`, so it needs an explicit `.cart-count[hidden]{display:none}`.
 - **Scroll reveals must not be able to hide content.** `observeReveal()` pairs the
   IntersectionObserver with a 3-second timeout that shows everything regardless.
+- **Motion has a thesis, not a default.** The one authored moment is the hero growing upward on
+  load; everything else explains feedback, state or relationship. There is deliberately no
+  per-section scroll reveal — it was removed because an identical entrance everywhere is
+  decoration and it put real content behind a timer. Do not reintroduce one.
+- **`#app` needs its `min-height`.** Views render from script, so without it the first paint
+  pulls the footer into the viewport.
 - **Use logical CSS properties** (`inset-inline-start`, `padding-inline`, `margin-inline`) so
   Arabic RTL works without a second stylesheet. Directional icons flip under `[dir="rtl"]`.
 
@@ -104,8 +110,13 @@ table in `i18n.js`; then the `NAMES`/`BLURBS` maps, `KB.LABELS`, every topic's `
 `CARD` and `FALLBACK` in `ai.js`, and `cardStrings()` in `app.js`. Add the locale code to the
 `LANGS` array in `ai.js` so its keywords are scored.
 
-The illustrations in `assets/img/` are committed artwork produced by a parametric SVG generator
-that is not in this repository; edit the SVGs directly.
+**Add a real photo** — put the file in `assets/img/photos/<id>.jpg` and register it in the
+`PHOTOS` map in `data.js` (a full URL works too). Every product image in the UI goes through
+`pimg()` in `app.js`, which prefers `p.photo` and falls back to `p.img` — including at runtime
+via `onerror`, so a wrong path degrades to the illustration instead of a blank card.
+
+The illustrations in `assets/img/plants/` are committed artwork produced by a parametric SVG
+generator that is not in this repository; edit the SVGs directly.
 
 ## Deployment
 

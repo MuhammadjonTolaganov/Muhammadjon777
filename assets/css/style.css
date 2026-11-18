@@ -69,6 +69,9 @@ h4 { font-size: 1.08rem; }
 p  { margin: 0 0 1em; }
 
 .wrap { width: 100%; max-width: var(--wrap); margin-inline: auto; padding-inline: 24px; }
+/* Views render from script, so reserve the space before they arrive —
+   otherwise the first paint pulls the footer up into the viewport. */
+#app { min-height: 78vh; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
 /* --------------------------------------------------------------- buttons */
@@ -281,7 +284,7 @@ p  { margin: 0 0 1em; }
   background: var(--surface-2); box-shadow: var(--sh-1); display: block;
   transition: transform .25s ease, box-shadow .25s ease;
 }
-.cat-card:hover { transform: translateY(-5px); box-shadow: var(--sh-3); }
+.cat-card:hover { box-shadow: var(--sh-3); }
 .cat-card img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
 .cat-card:hover img { transform: scale(1.06); }
 .cat-card::after {
@@ -304,7 +307,8 @@ p  { margin: 0 0 1em; }
   box-shadow: var(--sh-1); display: flex; flex-direction: column;
   transition: transform .22s ease, box-shadow .22s ease; position: relative;
 }
-.card:hover { transform: translateY(-5px); box-shadow: var(--sh-3); }
+.card:hover { box-shadow: var(--sh-3); }
+.card:hover .card-media img { transform: scale(1.05); }
 .card-media { position: relative; display: block; background: var(--surface-2); aspect-ratio: 1/1; overflow: hidden; }
 .card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .45s ease; }
 .card:hover .card-media img { transform: scale(1.05); }
@@ -735,12 +739,85 @@ p  { margin: 0 0 1em; }
 @keyframes toastIn { from { opacity: 0; transform: translateY(14px) scale(.96); } }
 
 /* --------------------------------------------------------------- motion */
-.reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
-.reveal.in { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) {
-  * { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
-  .reveal { opacity: 1; transform: none; }
+/* ===================================================== motion ==========
+   Thesis: this shop sells living things, so the one authored moment is
+   growth — the hero rises from the pot line as the headline arrives. Every
+   other animation explains feedback, state or relationship. There is no
+   repeated per-section entrance: that is wallpaper, not authorship.        */
+
+/* Focal: the hero grows upward, once, on arrival. The default state is the
+   finished state, so a failed stylesheet or script can never hide it.      */
+@keyframes gh-grow {
+  from { clip-path: inset(100% 0 0 0); transform: translateY(14px) scale(.985); }
+  to   { clip-path: inset(0 0 0 0);    transform: none; }
 }
+@keyframes gh-line {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes gh-rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+.hero-art  { animation: gh-grow 1000ms cubic-bezier(.16,1,.3,1) 80ms both; }
+.hero h1 .ln { display: block; animation: gh-line 760ms cubic-bezier(.16,1,.3,1) both; }
+.hero h1 .ln:nth-child(1) { animation-delay: 40ms; }
+.hero h1 .ln:nth-child(2) { animation-delay: 130ms; }
+.hero h1 .ln:nth-child(3) { animation-delay: 220ms; }
+.hero .lead     { animation: gh-rise 640ms cubic-bezier(.16,1,.3,1) 330ms both; }
+.hero-cta       { animation: gh-rise 640ms cubic-bezier(.16,1,.3,1) 420ms both; }
+.feature-strip  { animation: gh-rise 640ms cubic-bezier(.16,1,.3,1) 520ms both; }
+
+/* Relationship: a filtered or sorted grid is a new list, so it arrives as
+   one. Delay is capped — the last card never waits on the first twelve.    */
+@keyframes gh-card {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+.prod-grid .card { animation: gh-card 440ms cubic-bezier(.16,1,.3,1) both;
+  animation-delay: calc(min(var(--i, 0), 11) * 26ms); }
+
+/* Continuity: a route change is a change of place, not a jump cut. Opacity
+   only — a transform here would re-parent every sticky child mid-flight.   */
+@keyframes gh-view { from { opacity: 0; } to { opacity: 1; } }
+.view-enter { animation: gh-view 240ms ease-out both; }
+
+/* Feedback: the cart badge is the result of the button that was clicked, so
+   it has to be seen reacting to it.                                        */
+@keyframes gh-pop {
+  0%   { transform: scale(1); }
+  38%  { transform: scale(1.38); }
+  100% { transform: scale(1); }
+}
+.cart-count.pop { animation: gh-pop 440ms cubic-bezier(.16,1,.3,1); }
+.add-btn { transition: background .15s, transform .15s, box-shadow .2s; }
+.add-btn.done { background: var(--ok); transform: scale(1.08); }
+
+@media (prefers-reduced-motion: reduce) {
+  /* Reduce movement, keep meaning. Entrances resolve instantly; colour and
+     opacity feedback survive so an action still visibly registers.         */
+  .hero-art, .hero h1 .ln, .hero .lead, .hero-cta, .feature-strip,
+  .prod-grid .card, .view-enter { animation: none !important; }
+  .cart-count.pop { animation: gh-view 200ms ease-out; }
+  .card:hover .card-media img, .cat-card:hover img { transform: none !important; }
+  html { scroll-behavior: auto !important; }
+  * { transition-duration: .01ms !important; }
+}
+
+/* ======================================== browser-owned surfaces =======
+   The parts not drawn here still ship with the design.                     */
+::selection { background: var(--accent-2); color: var(--brand-ink); }
+:root { caret-color: var(--brand); accent-color: var(--brand); }
+:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; border-radius: 6px; }
+:focus:not(:focus-visible) { outline: none; }
+* { scrollbar-width: thin; scrollbar-color: var(--line-2) transparent; }
+::-webkit-scrollbar { width: 11px; height: 11px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--line-2); border-radius: var(--r-pill);
+  border: 3px solid var(--bg); }
+::-webkit-scrollbar-thumb:hover { background: var(--ink-3); }
+.price, .sum-row, .order-box dd, .kv dd, .range-val, .cart-row .lt, .mini-item .p {
+  font-variant-numeric: tabular-nums; }
 
 /* ------------------------------------------------------------ responsive */
 @media (max-width: 1080px) {
